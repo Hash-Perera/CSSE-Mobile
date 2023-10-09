@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
   },
   btnBack: {
     position: "absolute",
-    top: "10%", // 10% of the screen height from the top
+    top: "10%",
     left: "1%",
   },
   tittle: {
