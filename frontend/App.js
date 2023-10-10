@@ -3,10 +3,11 @@ import React from "react";
 import { COLORS } from "./constraints/constants";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import GeneralNavigation from "./components/general-navigation";
 import Login from "./screens/login";
 import SignUp from "./screens/signUp";
 import GetStarted from "./screens/getStarted";
+import Home from "./screens/home";
+import TopUp from "./screens/topUp";
 
 const Stack = createStackNavigator();
 
@@ -31,9 +32,23 @@ export default function App() {
             options={{ headerShown: false }}
           />
           <Stack.Screen
-            name="GeneralNavigation"
-            component={GeneralNavigation}
+            name="Home"
+            component={Home}
             options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="TopUp"
+            component={TopUp}
+            options={{
+              title: "Top Up Your Credits",
+              headerStyle: {
+                backgroundColor: COLORS.drawable,
+              },
+              headerTintColor: "#fff",
+              headerTitleStyle: {
+                fontWeight: "bold",
+              },
+            }}
           />
         </Stack.Navigator>
       </NavigationContainer>

@@ -10,7 +10,6 @@ import {
 } from "react-native";
 import { TextInput } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
-
 const { width, height } = Dimensions.get("window");
 
 const Login = () => {
@@ -25,7 +24,7 @@ const Login = () => {
   };
 
   const handleLogin = () => {
-    navigation.navigate("GeneralNavigation");
+    navigation.navigate("Home");
   };
 
   return (
