@@ -11,6 +11,7 @@ import {
 import { TextInput } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 const { width, height } = Dimensions.get("window");
+import { StatusBar } from "expo-status-bar";
 
 const Login = () => {
   const navigation = useNavigation();
@@ -66,6 +67,7 @@ const Login = () => {
             <Text style={styles.signButtonText}>Sign up</Text>
           </TouchableOpacity>
         </View>
+        <StatusBar style="black" />
       </View>
     </SafeAreaView>
   );

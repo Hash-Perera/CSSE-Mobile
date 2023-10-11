@@ -2,7 +2,6 @@ import {
   View,
   Text,
   Image,
-  FlatList,
   StyleSheet,
   SafeAreaView,
   ScrollView,
@@ -32,11 +31,23 @@ const Home = () => {
                 style={styles.proImage}
               />
             </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.userLogout}
+              onPress={() => {
+                navigation.navigate("Login");
+              }}
+            >
+              <Image
+                source={require("../assets/images/logout.png")}
+                style={styles.logoutImg}
+              />
+            </TouchableOpacity>
             <View style={styles.userWelcome}>
               <Image
                 source={require("../assets/images/pet.png")}
                 style={styles.welcomeImg}
               />
+
               <View style={{ flexDirection: "column" }}>
                 <Text style={styles.welcomeText}>David !</Text>
                 <Text style={styles.welcomeNote}>"Riding the easy way"</Text>
@@ -52,14 +63,24 @@ const Home = () => {
           </View>
           <View style={styles.funContainer}>
             <View style={{ flexDirection: "column", gap: width * 0.05 }}>
-              <TouchableOpacity style={styles.fun}>
+              <TouchableOpacity
+                style={styles.fun}
+                onPress={() => {
+                  navigation.navigate("PassengerBusSchedule");
+                }}
+              >
                 <Image
                   source={require("../assets/images/schedule.png")}
                   style={styles.funImg}
                 />
                 <Text style={styles.funText}>Schedule</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.fun}>
+              <TouchableOpacity
+                style={styles.fun}
+                onPress={() => {
+                  navigation.navigate("PassengerToken");
+                }}
+              >
                 <Image
                   source={require("../assets/images/scan-code.png")}
                   style={styles.funImg}
@@ -68,7 +89,12 @@ const Home = () => {
               </TouchableOpacity>
             </View>
             <View style={{ flexDirection: "column", gap: width * 0.05 }}>
-              <TouchableOpacity style={styles.fun}>
+              <TouchableOpacity
+                style={styles.fun}
+                onPress={() => {
+                  navigation.navigate("PassengerTrips");
+                }}
+              >
                 <Image
                   source={require("../assets/images/travel.png")}
                   style={styles.funImg}
@@ -106,20 +132,26 @@ const styles = StyleSheet.create({
     height: width * 0.12,
     borderRadius: width * 0.12,
     position: "absolute",
-    top: height * 0.02,
-    right: width * 0.01,
-    justifyContent: "center",
-    alignItems: "center",
+    top: height * 0.03,
+    right: width * 0.05,
   },
   proImage: {
+    left: width * 0.02,
     width: width * 0.1,
     height: width * 0.1,
+    alignSelf: "right",
+  },
+  logoutImg: {
+    width: width * 0.07,
+    height: width * 0.07,
+    left: width * 0.05,
+    top: height * 0.03,
   },
   userWelcome: {
     flexDirection: "row",
     marginTop: height * 0.02,
     marginLeft: width * 0.05,
-    top: height * 0.12,
+    top: height * 0.07,
   },
   welcomeText: {
     fontSize: width * 0.09,
@@ -138,6 +170,7 @@ const styles = StyleSheet.create({
     width: width * 0.15,
     height: width * 0.15,
   },
+
   creditContainer: {
     marginTop: height * 0.0,
     marginLeft: width * 0.05,

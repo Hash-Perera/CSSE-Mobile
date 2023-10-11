@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^13.0.0",
+    "@gorhom/bottom-sheet": "^4.5.1",
     "@react-native-async-storage/async-storage": "1.18.2",
     "@react-native-picker/picker": "^2.5.1",
     "@react-navigation/drawer": "^6.6.3",
@@ -26,6 +27,7 @@
     "react-native-paper-dropdown": "^1.0.7",
     "react-native-paper-select": "^1.0.2",
     "react-native-reanimated": "~3.3.0",
+    "react-native-root-toast": "^3.5.1",
     "react-native-safe-area-context": "4.6.3",
     "react-native-screens": "^3.25.0"
   },
