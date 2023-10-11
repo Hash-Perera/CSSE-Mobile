@@ -12,6 +12,7 @@ import PassengerToken from "./screens/passengerToken";
 import PassengerBusSchedule from "./screens/passengerBusSchedule";
 import PassengerTrips from "./screens/passengerTrips";
 import UserProfile from "./screens/userProfile";
+import InspectorDashboard from "./screens/inspectorDash";
 
 const Stack = createStackNavigator();
 
@@ -109,6 +110,11 @@ export default function App() {
                 fontWeight: "bold",
               },
             }}
+          />
+          <Stack.Screen
+            name="InspectorDashboard"
+            component={InspectorDashboard}
+            options={{ headerShown: false }}
           />
         </Stack.Navigator>
       </NavigationContainer>

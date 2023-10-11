@@ -27,16 +27,12 @@ const SignUp = () => {
 
   const accountTypes = [
     {
-      label: "General",
-      value: "General",
+      label: "Local",
+      value: "Local",
     },
     {
-      label: "Organizer",
-      value: "Organizer",
-    },
-    {
-      label: "Sponsor",
-      value: "Sponsor",
+      label: "Foreign",
+      value: "Foreign",
     },
   ];
 

@@ -33,10 +33,9 @@ const PassengerTrips = () => {
   );
 };
 
-export default PassengerTrips;
-
 const styles = StyleSheet.create({
   contanier: {
     flex: 1,
   },
 });
+export default PassengerTrips;

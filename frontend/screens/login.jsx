@@ -26,7 +26,7 @@ const Login = () => {
   };
 
   const handleLogin = () => {
-    navigation.navigate("Home");
+    navigation.navigate("InspectorDashboard");
   };
 
   return (
@@ -73,8 +73,6 @@ const Login = () => {
     </SafeAreaView>
   );
 };
-
-export default Login;
 
 const styles = StyleSheet.create({
   container: {
@@ -143,3 +141,4 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 });
+export default Login;

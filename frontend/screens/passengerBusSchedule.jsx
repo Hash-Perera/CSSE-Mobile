@@ -63,8 +63,6 @@ const PassengerBusSchedule = () => {
   );
 };
 
-export default PassengerBusSchedule;
-
 styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -112,3 +110,4 @@ styles = StyleSheet.create({
     alignItems: "center",
   },
 });
+export default PassengerBusSchedule;

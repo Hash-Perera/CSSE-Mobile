@@ -24,8 +24,6 @@ const PassengerToken = () => {
   );
 };
 
-export default PassengerToken;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -43,3 +41,4 @@ const styles = StyleSheet.create({
     marginTop: height * 0.1,
   },
 });
+export default PassengerToken;
