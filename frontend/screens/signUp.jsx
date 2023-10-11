@@ -12,6 +12,7 @@ import {
 import { TextInput, Provider } from "react-native-paper";
 import DropDown from "react-native-paper-dropdown";
 import { useNavigation } from "@react-navigation/native";
+import { COLORS } from "../constraints/constants";
 
 const { width, height } = Dimensions.get("window");
 
@@ -161,7 +162,7 @@ const styles = StyleSheet.create({
     marginTop: height * 0.001,
   },
   registerButton: {
-    backgroundColor: "#16213E",
+    backgroundColor: COLORS.buttonColor,
     padding: width * 0.03,
     borderRadius: width * 0.1,
     alignItems: "center",

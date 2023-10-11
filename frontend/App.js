@@ -11,6 +11,7 @@ import TopUp from "./screens/passengerTopUp";
 import PassengerToken from "./screens/passengerToken";
 import PassengerBusSchedule from "./screens/passengerBusSchedule";
 import PassengerTrips from "./screens/passengerTrips";
+import UserProfile from "./screens/userProfile";
 
 const Stack = createStackNavigator();
 
@@ -86,6 +87,20 @@ export default function App() {
             component={PassengerTrips}
             options={{
               title: "My Trips",
+              headerStyle: {
+                backgroundColor: COLORS.drawable,
+              },
+              headerTintColor: "#fff",
+              headerTitleStyle: {
+                fontWeight: "bold",
+              },
+            }}
+          />
+          <Stack.Screen
+            name="UserProfile"
+            component={UserProfile}
+            options={{
+              title: "My Profile",
               headerStyle: {
                 backgroundColor: COLORS.drawable,
               },

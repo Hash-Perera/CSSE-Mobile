@@ -27,7 +27,13 @@ const PassengerTripCard = ({ item, handleCardPress }) => {
         <View style={styles.detailsContainer}>
           <Text style={styles.routeText}>Kaduwela - Kollupitiya</Text>
           <Text style={styles.routeText2}>6 Aug - 6 : 40 PM</Text>
-          <Text style={styles.timeText}>Rs. 50.00</Text>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-around" }}
+          >
+            <Text style={styles.timeText}>Bus No : NV-1232</Text>
+            <Text style={styles.timeText}>Distance : 4 km</Text>
+            <Text style={styles.timeText}>Rs. 50.00</Text>
+          </View>
         </View>
       </View>
     </TouchableOpacity>

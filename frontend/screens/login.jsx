@@ -12,6 +12,7 @@ import { TextInput } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 const { width, height } = Dimensions.get("window");
 import { StatusBar } from "expo-status-bar";
+import { COLORS } from "../constraints/constants";
 
 const Login = () => {
   const navigation = useNavigation();
@@ -114,7 +115,7 @@ const styles = StyleSheet.create({
     marginTop: height * 0.001,
   },
   loginButton: {
-    backgroundColor: "#16213E",
+    backgroundColor: COLORS.buttonColor,
     padding: width * 0.03,
     borderRadius: width * 0.1,
     alignItems: "center",

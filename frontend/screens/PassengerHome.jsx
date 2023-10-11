@@ -25,7 +25,12 @@ const Home = () => {
       <ScrollView style={{ backgroundColor: COLORS.backgroundColor }}>
         <View style={styles.container}>
           <View style={styles.topContainer}>
-            <TouchableOpacity style={styles.userPro}>
+            <TouchableOpacity
+              style={styles.userPro}
+              onPress={() => {
+                navigation.navigate("UserProfile");
+              }}
+            >
               <Image
                 source={require("../assets/images/user.png")}
                 style={styles.proImage}
@@ -101,7 +106,12 @@ const Home = () => {
                 />
                 <Text style={styles.funText}>My Trips</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.fun}>
+              <TouchableOpacity
+                style={styles.fun}
+                onPress={() => {
+                  navigation.navigate("UserProfile");
+                }}
+              >
                 <Image
                   source={require("../assets/images/settingIcon.png")}
                   style={styles.funImg}
@@ -139,11 +149,10 @@ const styles = StyleSheet.create({
     left: width * 0.02,
     width: width * 0.1,
     height: width * 0.1,
-    alignSelf: "right",
   },
   logoutImg: {
-    width: width * 0.07,
-    height: width * 0.07,
+    width: width * 0.1,
+    height: width * 0.1,
     left: width * 0.05,
     top: height * 0.03,
   },
@@ -216,6 +225,7 @@ const styles = StyleSheet.create({
     width: width * 0.9,
     alignItems: "center",
     gap: width * 0.16,
+    marginBottom: height * 0.05,
   },
   fun: {
     backgroundColor: COLORS.white,

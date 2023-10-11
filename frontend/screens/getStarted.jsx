@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
+import { COLORS } from "../constraints/constants";
 
 const GetStarted = () => {
   const navigation = useNavigation();
@@ -19,7 +20,7 @@ const GetStarted = () => {
   return (
     <View style={styles.container}>
       <Image
-        source={require("../assets/images/EventGoSplash.png")}
+        source={require("../assets/images/ticketEaseLogo.png")}
         style={styles.logo}
       />
       <TouchableOpacity style={styles.loginButton} onPress={handleGetStarted}>
@@ -42,18 +43,18 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   logo: {
-    width: width * 0.8,
-    height: height * 0.4,
+    width: width * 1.2,
+    height: height * 0.75,
     resizeMode: "contain",
     alignSelf: "center",
   },
   loginButton: {
-    backgroundColor: "#16213E",
+    backgroundColor: COLORS.buttonColor,
     padding: 15,
     borderRadius: 25,
     alignItems: "center",
     width: width * 0.65,
-    marginTop: height * 0.25,
+    marginTop: height * 0.1,
   },
   loginButtonText: {
     color: "#fff",
