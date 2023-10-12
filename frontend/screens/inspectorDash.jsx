@@ -8,60 +8,13 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { COLORS } from "../constraints/constants";
 import { useNavigation } from "@react-navigation/native";
-import { Camera, CameraType } from "expo-camera";
-import { BarCodeScanner } from "expo-barcode-scanner";
 
 const { width, height } = Dimensions.get("window");
 
 const InspectorDashboard = () => {
-  const [hasPermission, setHasPermission] = useState(null);
-  const [scanned, setScanned] = useState(false);
-  const [text, setText] = useState("Not yet scanned");
-
-  const askForCameraPermission = () => {
-    (async () => {
-      const { status } = await BarCodeScanner.requestPermissionsAsync();
-      setHasPermission(status === "granted");
-    })();
-  };
-  // Request Camera Permission
-  useEffect(() => {
-    askForCameraPermission();
-  }, []);
-
-  console.log(hasPermission);
-  // What happens when we scan the bar code
-  const handleBarCodeScanned = ({ type, data }) => {
-    setScanned(true);
-    setText(data);
-    console.log("Type: " + type + "\nData: " + data);
-  };
-
-  const qrCodeScan = () => {
-    return (
-      <View style={styles.qrcontainer}>
-        <View style={styles.barcodebox}>
-          <BarCodeScanner
-            onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-            style={{ height: 400, width: 400 }}
-          />
-        </View>
-        <Text style={styles.maintext}>{text}</Text>
-
-        {scanned && (
-          <Button
-            title={"Scan again?"}
-            onPress={() => setScanned(false)}
-            color="tomato"
-          />
-        )}
-      </View>
-    );
-  };
-
   const navigation = useNavigation();
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -105,7 +58,11 @@ const InspectorDashboard = () => {
           <View style={styles.creditContainer}>
             <Text style={styles.labelText}>Reference Number</Text>
             <Text style={styles.balanceText}> 7984503C</Text>
-            <TouchableOpacity onPress={askForCameraPermission}>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("ScanQR");
+              }}
+            >
               <Image
                 source={require("../assets/images/camera.png")}
                 style={styles.cameraImg}
@@ -244,15 +201,20 @@ const styles = StyleSheet.create({
     fontSize: width * 0.05,
     color: COLORS.black,
     fontWeight: "bold",
+    marginBottom: height * 0.03,
   },
   cameraImg: {
-    top: height * 0.02,
-    width: width * 0.1,
-    height: width * 0.1,
+    position: "absolute",
+    top: height * 0.01,
+    width: width * 0.17,
+    height: width * 0.17,
+    alignSelf: "center",
+    justifyContent: "center",
+    alignItems: "center",
   },
   funContainer: {
     flexDirection: "row",
-    marginTop: height * 0.02,
+    marginTop: height * 0.04,
     marginLeft: width * 0.05,
     padding: width * 0.05,
     borderRadius: width * 0.05,

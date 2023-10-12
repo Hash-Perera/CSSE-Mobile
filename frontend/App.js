@@ -13,7 +13,7 @@ import PassengerBusSchedule from "./screens/passengerBusSchedule";
 import PassengerTrips from "./screens/passengerTrips";
 import UserProfile from "./screens/userProfile";
 import InspectorDashboard from "./screens/inspectorDash";
-
+import ScanQR from "./screens/scanQR";
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -115,6 +115,20 @@ export default function App() {
             name="InspectorDashboard"
             component={InspectorDashboard}
             options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="ScanQR"
+            component={ScanQR}
+            options={{
+              title: "Scan QR Code",
+              headerStyle: {
+                backgroundColor: COLORS.drawable,
+              },
+              headerTintColor: "#fff",
+              headerTitleStyle: {
+                fontWeight: "bold",
+              },
+            }}
           />
         </Stack.Navigator>
       </NavigationContainer>
