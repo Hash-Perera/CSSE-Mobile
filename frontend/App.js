@@ -3,11 +3,17 @@ import React from "react";
 import { COLORS } from "./constraints/constants";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import GeneralNavigation from "./components/general-navigation";
 import Login from "./screens/login";
 import SignUp from "./screens/signUp";
 import GetStarted from "./screens/getStarted";
-
+import Home from "./screens/PassengerHome";
+import TopUp from "./screens/passengerTopUp";
+import PassengerToken from "./screens/passengerToken";
+import PassengerBusSchedule from "./screens/passengerBusSchedule";
+import PassengerTrips from "./screens/passengerTrips";
+import UserProfile from "./screens/userProfile";
+import InspectorDashboard from "./screens/inspectorDash";
+import ScanQR from "./screens/scanQR";
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -31,9 +37,98 @@ export default function App() {
             options={{ headerShown: false }}
           />
           <Stack.Screen
-            name="GeneralNavigation"
-            component={GeneralNavigation}
+            name="Home"
+            component={Home}
             options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="TopUp"
+            component={TopUp}
+            options={{
+              title: "Top Up Your Credits",
+              headerStyle: {
+                backgroundColor: COLORS.drawable,
+              },
+              headerTintColor: "#fff",
+              headerTitleStyle: {
+                fontWeight: "bold",
+              },
+            }}
+          />
+          <Stack.Screen
+            name="PassengerToken"
+            component={PassengerToken}
+            options={{
+              title: "My Token",
+              headerStyle: {
+                backgroundColor: COLORS.drawable,
+              },
+              headerTintColor: "#fff",
+              headerTitleStyle: {
+                fontWeight: "bold",
+              },
+            }}
+          />
+          <Stack.Screen
+            name="PassengerBusSchedule"
+            component={PassengerBusSchedule}
+            options={{
+              title: "Bus Schedule",
+              headerStyle: {
+                backgroundColor: COLORS.drawable,
+              },
+              headerTintColor: "#fff",
+              headerTitleStyle: {
+                fontWeight: "bold",
+              },
+            }}
+          />
+          <Stack.Screen
+            name="PassengerTrips"
+            component={PassengerTrips}
+            options={{
+              title: "My Trips",
+              headerStyle: {
+                backgroundColor: COLORS.drawable,
+              },
+              headerTintColor: "#fff",
+              headerTitleStyle: {
+                fontWeight: "bold",
+              },
+            }}
+          />
+          <Stack.Screen
+            name="UserProfile"
+            component={UserProfile}
+            options={{
+              title: "My Profile",
+              headerStyle: {
+                backgroundColor: COLORS.drawable,
+              },
+              headerTintColor: "#fff",
+              headerTitleStyle: {
+                fontWeight: "bold",
+              },
+            }}
+          />
+          <Stack.Screen
+            name="InspectorDashboard"
+            component={InspectorDashboard}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="ScanQR"
+            component={ScanQR}
+            options={{
+              title: "Scan QR Code",
+              headerStyle: {
+                backgroundColor: COLORS.drawable,
+              },
+              headerTintColor: "#fff",
+              headerTitleStyle: {
+                fontWeight: "bold",
+              },
+            }}
           />
         </Stack.Navigator>
       </NavigationContainer>
