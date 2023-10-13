@@ -11,7 +11,7 @@ const { width, height } = Dimensions.get("window");
 
 const PassengerTripCard = ({ item, handleCardPress }) => {
   return (
-    <TouchableOpacity onPress={() => handleCardPress(item.key)}>
+    <TouchableOpacity onPress={() => handleCardPress(item.id)}>
       <View style={styles.cardContainer}>
         <View style={styles.routeNo}>
           <Text
@@ -21,18 +21,22 @@ const PassengerTripCard = ({ item, handleCardPress }) => {
               color: COLORS.white,
             }}
           >
-            177
+            {item.routeNo}
           </Text>
         </View>
         <View style={styles.detailsContainer}>
-          <Text style={styles.routeText}>Kaduwela - Kollupitiya</Text>
-          <Text style={styles.routeText2}>6 Aug - 6 : 40 PM</Text>
+          <Text style={styles.routeText}>
+            {item.busRouteStart} - {item.busRouteEnd}{" "}
+          </Text>
+          <Text style={styles.routeText2}>
+            {item.busDate} - {item.tripTime}
+          </Text>
           <View
             style={{ flexDirection: "row", justifyContent: "space-around" }}
           >
-            <Text style={styles.timeText}>Bus No : NV-1232</Text>
-            <Text style={styles.timeText}>Distance : 4 km</Text>
-            <Text style={styles.timeText}>Rs. 50.00</Text>
+            <Text style={styles.timeText}>Bus No : {item.busNo}</Text>
+            <Text style={styles.timeText}>Distance : {item.tripDistance}</Text>
+            <Text style={styles.timeText}>{item.cost}</Text>
           </View>
         </View>
       </View>

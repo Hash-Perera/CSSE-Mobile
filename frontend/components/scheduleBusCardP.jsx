@@ -11,7 +11,7 @@ const { width, height } = Dimensions.get("window");
 
 const BusScheduleCard = ({ item, handleCardPress }) => {
   return (
-    <TouchableOpacity onPress={() => handleCardPress(item.key)}>
+    <TouchableOpacity onPress={() => handleCardPress(item.id)}>
       <View style={styles.cardContainer}>
         <View style={styles.routeNo}>
           <Text
@@ -21,12 +21,14 @@ const BusScheduleCard = ({ item, handleCardPress }) => {
               color: COLORS.white,
             }}
           >
-            177
+            {item.routeNo}
           </Text>
         </View>
         <View style={styles.detailsContainer}>
-          <Text style={styles.routeText}>Kaduwela - Kollupitiya</Text>
-          <Text style={styles.timeText}>15:00</Text>
+          <Text style={styles.routeText}>
+            {item.busRouteStart} - {item.busRouteEnd}
+          </Text>
+          <Text style={styles.timeText}>{item.time}</Text>
         </View>
       </View>
     </TouchableOpacity>

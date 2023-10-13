@@ -8,6 +8,7 @@ import {
   ScrollView,
   SafeAreaView,
   Dimensions,
+  KeyboardAvoidingView,
 } from "react-native";
 import { TextInput, Provider } from "react-native-paper";
 import DropDown from "react-native-paper-dropdown";
@@ -17,6 +18,13 @@ import { COLORS } from "../constraints/constants";
 const { width, height } = Dimensions.get("window");
 
 const SignUp = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [contact, setContact] = useState("");
+  console.log(
+    contact + " " + email + " " + password + " " + username + " " + accountType
+  );
   const navigation = useNavigation();
   const [showDropDown, setShowDropDown] = useState(false);
   const [accountType, setAccountType] = useState("");
@@ -53,54 +61,61 @@ const SignUp = () => {
               <Text style={styles.tittle}>Create{"\n"} Account</Text>
             </View>
             <View style={styles.formContainer}>
-              <View style={styles.inputContainer}>
-                <TextInput
-                  label="Name"
-                  mode="outlined"
-                  placeholder="Name"
-                  style={styles.input}
-                />
-                <TextInput
-                  label="Email"
-                  mode="outlined"
-                  placeholder="Email"
-                  style={styles.input}
-                />
-                <TextInput
-                  label="Password"
-                  mode="outlined"
-                  placeholder="Enter password"
-                  secureTextEntry={true}
-                  style={styles.input}
-                />
-                <TextInput
-                  label="Confirm Password"
-                  mode="outlined"
-                  placeholder="Confirm password"
-                  secureTextEntry={true}
-                  style={styles.input}
-                />
-                <DropDown
-                  label={"Account Type"}
-                  mode={"outlined"}
-                  visible={showDropDown}
-                  showDropDown={() => setShowDropDown(true)}
-                  onDismiss={() => setShowDropDown(false)}
-                  value={accountType}
-                  setValue={setAccountType}
-                  list={accountTypes}
-                  inputProps={{
-                    right: <TextInput.Icon name={"menu-down"} />,
-                  }}
-                  style={styles.input}
-                />
-                <TextInput
-                  label="Phone number"
-                  mode="outlined"
-                  placeholder="Phone number"
-                  style={styles.input}
-                />
-              </View>
+              <KeyboardAvoidingView behavior="position">
+                <View style={styles.inputContainer}>
+                  <TextInput
+                    label="Name"
+                    mode="outlined"
+                    placeholder="Name"
+                    style={styles.input}
+                    onChangeText={(text) => setUsername(text)}
+                  />
+                  <TextInput
+                    label="Email"
+                    mode="outlined"
+                    placeholder="Email"
+                    style={styles.input}
+                    onChangeText={(text) => setEmail(text)}
+                  />
+                  <TextInput
+                    label="Password"
+                    mode="outlined"
+                    placeholder="Enter password"
+                    secureTextEntry={true}
+                    style={styles.input}
+                    onChangeText={(text) => setPassword(text)}
+                  />
+                  <TextInput
+                    label="Confirm Password"
+                    mode="outlined"
+                    placeholder="Confirm password"
+                    secureTextEntry={true}
+                    style={styles.input}
+                    onChangeText={(text) => setPassword(text)}
+                  />
+                  <DropDown
+                    label={"Account Type"}
+                    mode={"outlined"}
+                    visible={showDropDown}
+                    showDropDown={() => setShowDropDown(true)}
+                    onDismiss={() => setShowDropDown(false)}
+                    value={accountType}
+                    setValue={setAccountType}
+                    list={accountTypes}
+                    inputProps={{
+                      right: <TextInput.Icon name={"menu-down"} />,
+                    }}
+                    style={styles.input}
+                  />
+                  <TextInput
+                    label="Phone number"
+                    mode="outlined"
+                    placeholder="Phone number"
+                    style={styles.input}
+                    onChangeText={(text) => setContact(text)}
+                  />
+                </View>
+              </KeyboardAvoidingView>
               <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.registerButton}>
                   <Text style={styles.registerButtonText}>Register</Text>

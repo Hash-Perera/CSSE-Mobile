@@ -7,6 +7,7 @@ import {
   ScrollView,
   Dimensions,
   TouchableOpacity,
+  KeyboardAvoidingView,
 } from "react-native";
 import React from "react";
 import { COLORS } from "../constraints/constants";

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Dimensions,
   SafeAreaView,
+  KeyboardAvoidingView,
 } from "react-native";
 import { TextInput } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
@@ -15,6 +16,9 @@ import { StatusBar } from "expo-status-bar";
 import { COLORS } from "../constraints/constants";
 
 const Login = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
   const navigation = useNavigation();
 
   const handleSignUpBtn = () => {
@@ -26,6 +30,7 @@ const Login = () => {
   };
 
   const handleLogin = () => {
+    //navigation.navigate("Home");
     navigation.navigate("InspectorDashboard");
   };
 
@@ -43,23 +48,27 @@ const Login = () => {
           </TouchableOpacity>
           <Text style={styles.welcomeText}>Welcome{"\n"} back</Text>
         </View>
-        <View style={styles.inputContainer}>
-          <TextInput
-            label="Username"
-            mode="outlined"
-            placeholder="Enter username"
-          />
-          <TextInput
-            label="Password"
-            mode="outlined"
-            placeholder="Enter password"
-            secureTextEntry={true}
-            style={styles.passwordInput}
-          />
-          <TouchableOpacity style={styles.forgotPassword}>
-            <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
-          </TouchableOpacity>
-        </View>
+        <KeyboardAvoidingView behavior="position">
+          <View style={styles.inputContainer}>
+            <TextInput
+              label="Username"
+              mode="outlined"
+              placeholder="Enter username"
+              onChangeText={(text) => setUsername(text)}
+            />
+            <TextInput
+              label="Password"
+              mode="outlined"
+              placeholder="Enter password"
+              secureTextEntry={true}
+              style={styles.passwordInput}
+              onChangeText={(text) => setPassword(text)}
+            />
+            <TouchableOpacity style={styles.forgotPassword}>
+              <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
+            </TouchableOpacity>
+          </View>
+        </KeyboardAvoidingView>
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
             <Text style={styles.loginButtonText}>Login</Text>

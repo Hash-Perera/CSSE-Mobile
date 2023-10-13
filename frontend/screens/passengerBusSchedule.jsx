@@ -9,7 +9,7 @@ import {
   Dimensions,
   TextInput,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { COLORS } from "../constraints/constants";
 const { width, height } = Dimensions.get("window");
 import { useNavigation } from "@react-navigation/native";
@@ -17,6 +17,76 @@ import BusScheduleCard from "../components/scheduleBusCardP";
 
 const PassengerBusSchedule = () => {
   const navigation = useNavigation();
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const [busScheduleData, setBusScheduleData] = useState([
+    {
+      id: "a",
+      routeNo: "177",
+      busRouteStart: "Kollupitiya",
+      busRouteEnd: "Kaduwela",
+      time: "7:00 AM",
+    },
+    {
+      id: "b",
+      routeNo: "15",
+      busRouteStart: "Anuradhapura",
+      busRouteEnd: "Colombo",
+      time: "7:00 AM",
+    },
+    {
+      id: "c",
+      routeNo: "602",
+      busRouteStart: "Kandy",
+      busRouteEnd: "Kurunagala",
+      time: "7:00 AM",
+    },
+    {
+      id: "d",
+      routeNo: "17",
+      busRouteStart: "Kandy",
+      busRouteEnd: "panadura",
+
+      time: "7:00 AM",
+    },
+    {
+      id: "e",
+      routeNo: "138",
+      busRouteStart: "kottawa",
+      busRouteEnd: "Colombo",
+      time: "7:00 AM",
+    },
+    {
+      id: "f",
+      routeNo: "190",
+      busRouteStart: "migoda",
+      busRouteEnd: "Colombo",
+      time: "7:00 AM",
+    },
+  ]);
+  const [filteredData, setFilteredData] = useState(busScheduleData);
+
+  /* Search function */
+  const handleSearch = () => {
+    const filtered = busScheduleData.filter((item) => {
+      const routeNoMatch = item.routeNo
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase());
+      const busRouteStartMatch = item.busRouteStart
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase());
+      const busRouteEndMatch = item.busRouteEnd
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase());
+
+      // Filter if either routeNo or bus details matches the searchQuery
+      return busRouteStartMatch || busRouteEndMatch || routeNoMatch;
+    });
+    if (filtered == "") {
+      alert("No results found");
+    }
+    setFilteredData(filtered);
+  };
 
   const handleCardPress = (item) => {
     console.log("Card Pressed");
@@ -31,9 +101,11 @@ const PassengerBusSchedule = () => {
             <TextInput
               style={styles.searchInput}
               placeholder="Search for bus schedule"
+              onChangeText={(text) => setSearchQuery(text)}
+              value={searchQuery}
             />
           </View>
-          <TouchableOpacity style={styles.searchBtn}>
+          <TouchableOpacity style={styles.searchBtn} onPress={handleSearch}>
             <Image
               source={require("../assets/images/search.png")}
               style={styles.searchBtnImage}
@@ -42,19 +114,11 @@ const PassengerBusSchedule = () => {
           </TouchableOpacity>
         </View>
         <FlatList
-          data={[
-            { key: "a" },
-            { key: "b" },
-            { key: "c" },
-            { key: "d" },
-            { key: "e" },
-            { key: "f" },
-            { key: "g" },
-          ]}
+          data={filteredData}
           renderItem={({ item }) => (
             <BusScheduleCard item={item} handleCardPress={handleCardPress} />
           )}
-          keyExtractor={(item) => item.key}
+          idExtractor={(item) => item.id}
           horizontal={false}
           contentContainerStyle={styles.flatListContent}
         />

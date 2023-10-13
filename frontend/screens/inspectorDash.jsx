@@ -8,13 +8,16 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { COLORS } from "../constraints/constants";
 import { useNavigation } from "@react-navigation/native";
 
 const { width, height } = Dimensions.get("window");
 
 const InspectorDashboard = () => {
+  const [username, setUsername] = useState("David");
+  const [refNo, setRefNo] = useState("798760C");
+
   const navigation = useNavigation();
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -50,14 +53,14 @@ const InspectorDashboard = () => {
               />
 
               <View style={{ flexDirection: "column" }}>
-                <Text style={styles.welcomeText}>David !</Text>
+                <Text style={styles.welcomeText}>{username} !</Text>
                 <Text style={styles.welcomeNote}>"Riding the easy way"</Text>
               </View>
             </View>
           </View>
           <View style={styles.creditContainer}>
             <Text style={styles.labelText}>Reference Number</Text>
-            <Text style={styles.balanceText}> 7984503C</Text>
+            <Text style={styles.balanceText}> {refNo}</Text>
             <TouchableOpacity
               onPress={() => {
                 navigation.navigate("ScanQR");
