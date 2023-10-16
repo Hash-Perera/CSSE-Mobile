@@ -19,6 +19,8 @@ import {
 } from "@gorhom/bottom-sheet";
 import { RootSiblingParent } from "react-native-root-siblings";
 import Toast from "react-native-root-toast";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
 
 const { width, height } = Dimensions.get("window");
 
@@ -46,11 +48,33 @@ const TopUp = () => {
   const handlePresentModal = () => {
     bottomSheetModalRef.current?.present();
   };
-  const handleDoneButtonPress = () => {
+  const handleDoneButtonPress = async () => {
     if (inputValue === "") {
       alert("Please enter an amount!");
       return;
     }
+
+    const AuthToken = await AsyncStorage.getItem("token");
+
+    const apiConfig = {
+      headers: {
+        Authorization: `Bearer ${AuthToken}`,
+        "Content-Type": "application/json",
+      },
+    };
+
+    const data = {
+      userData: inputValue,
+    };
+
+    axios
+      .post("auth/inc-value", data, apiConfig)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
 
     setIsLoading(true);
     showToast();

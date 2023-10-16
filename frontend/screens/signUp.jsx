@@ -14,23 +14,49 @@ import { TextInput, Provider } from "react-native-paper";
 import DropDown from "react-native-paper-dropdown";
 import { useNavigation } from "@react-navigation/native";
 import { COLORS } from "../constraints/constants";
+import axios from "axios";
+import Toast from "react-native-root-toast";
 
 const { width, height } = Dimensions.get("window");
 
 const SignUp = () => {
+  //Form field
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [contact, setContact] = useState("");
-  console.log(
-    contact + " " + email + " " + password + " " + username + " " + accountType
-  );
+  const [accountType, setAccountType] = useState("");
+
   const navigation = useNavigation();
   const [showDropDown, setShowDropDown] = useState(false);
-  const [accountType, setAccountType] = useState("");
 
   const handleBack = () => {
     navigation.navigate("Login");
+  };
+
+  const register = async () => {
+    const data = {
+      userName: username,
+      email: email,
+      password: password,
+      contact: contact,
+      accountType: accountType,
+      accountBalance: 0,
+    };
+    await axios
+      .post("/auth/register", data)
+      .then(() => {
+        Toast.show("Succesfully Registerd ! Login Now", {
+          duration: Toast.durations.LONG,
+        });
+        navigation.navigate("Login");
+      })
+      .catch((error) => {
+        Toast.show(error, {
+          duration: Toast.durations.LONG,
+        });
+        console.log(error);
+      });
   };
 
   const accountTypes = [
@@ -118,7 +144,9 @@ const SignUp = () => {
               </KeyboardAvoidingView>
               <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.registerButton}>
-                  <Text style={styles.registerButtonText}>Register</Text>
+                  <Text style={styles.registerButtonText} onPress={register}>
+                    Register
+                  </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={styles.signButton}
