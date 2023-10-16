@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -14,6 +14,9 @@ import { useNavigation } from "@react-navigation/native";
 const { width, height } = Dimensions.get("window");
 import { StatusBar } from "expo-status-bar";
 import { COLORS } from "../constraints/constants";
+import axios from "axios";
+import Toast from "react-native-root-toast";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -29,9 +32,37 @@ const Login = () => {
     navigation.navigate("GetStarted");
   };
 
-  const handleLogin = () => {
-    //navigation.navigate("Home");
-    navigation.navigate("InspectorDashboard");
+  ///Login Function
+  const handleLogin = async () => {
+    const data = {
+      email: username,
+      password: password,
+    };
+
+    await axios
+      .post("/auth/login", data)
+      .then(async (reponse) => {
+        if (reponse.data.token) {
+          await AsyncStorage.setItem("token", reponse.data.token);
+          await AsyncStorage.setItem("role", reponse.data.role);
+          if (reponse.data.role == "Admin") {
+            console.log("Login success");
+            navigation.navigate("Home", {
+              data: {
+                role: reponse.data.role,
+                username: reponse.data.username,
+                balance: reponse.data.balance,
+              },
+            });
+          } else {
+            navigation.navigate("InspectorDashboard");
+          }
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        Toast.show("Incorrect Credentials", { duration: Toast.durations.LONG });
+      });
   };
 
   return (

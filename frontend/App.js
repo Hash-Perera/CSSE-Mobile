@@ -14,7 +14,15 @@ import PassengerTrips from "./screens/passengerTrips";
 import UserProfile from "./screens/userProfile";
 import InspectorDashboard from "./screens/inspectorDash";
 import ScanQR from "./screens/scanQR";
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const Stack = createStackNavigator();
+
+axios.defaults.baseURL = "http://192.168.8.198:3001";
+// AsyncStorage.removeItem("token");
+// axios.defaults.headers.common["Authorization"] = await AsyncStorage.getItem(
+//   "token"
+// );
 
 export default function App() {
   return (
