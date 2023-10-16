@@ -9,119 +9,167 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { COLORS } from "../constraints/constants";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
 
 const { width, height } = Dimensions.get("window");
 
 const Home = () => {
   const navigation = useNavigation();
+  // const route = useRoute();
+  // const { data } = route.params;
+  const [tokenValue, settokenValue] = useState(null);
+  const [userDetails, setUserDetails] = useState(null);
+  const [isData, setIsData] = useState(false);
 
   const naviTop = () => {
     navigation.navigate("TopUp");
   };
+
+  const getUserData = async () => {
+    const AuthToken = await AsyncStorage.getItem("token");
+
+    const apiConfig = {
+      headers: {
+        Authorization: `Bearer ${AuthToken}`,
+        "Content-Type": "application/json",
+      },
+    };
+
+    axios
+      .get("/auth/user-details", apiConfig)
+      .then((response) => {
+        setUserDetails(response.data);
+        setIsData(true);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  useEffect(() => {
+    getUserData();
+    console.log(userDetails);
+  }, []);
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView style={{ backgroundColor: COLORS.backgroundColor }}>
-        <View style={styles.container}>
-          <View style={styles.topContainer}>
-            <TouchableOpacity
-              style={styles.userPro}
-              onPress={() => {
-                navigation.navigate("UserProfile");
-              }}
-            >
-              <Image
-                source={require("../assets/images/user.png")}
-                style={styles.proImage}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.userLogout}
-              onPress={() => {
-                navigation.navigate("Login");
-              }}
-            >
-              <Image
-                source={require("../assets/images/logout.png")}
-                style={styles.logoutImg}
-              />
-            </TouchableOpacity>
-            <View style={styles.userWelcome}>
-              <Image
-                source={require("../assets/images/pet.png")}
-                style={styles.welcomeImg}
-              />
+        {isData && (
+          <View style={styles.container}>
+            <View style={styles.topContainer}>
+              <TouchableOpacity
+                style={styles.userPro}
+                onPress={() => {
+                  //navigation.navigate("UserProfile");
+                  axios
+                    .get("/bus/all-for-route", apiConfig)
+                    .then((reponse) => {
+                      console.log(reponse);
+                    })
+                    .catch((error) => {
+                      console.log(error);
+                    });
+                }}
+              >
+                <Image
+                  source={require("../assets/images/user.png")}
+                  style={styles.proImage}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.userLogout}
+                onPress={async () => {
+                  await AsyncStorage.removeItem("token");
+                  await AsyncStorage.removeItem("role");
+                  navigation.navigate("Login");
+                }}
+              >
+                <Image
+                  source={require("../assets/images/logout.png")}
+                  style={styles.logoutImg}
+                />
+              </TouchableOpacity>
+              <View style={styles.userWelcome}>
+                <Image
+                  source={require("../assets/images/pet.png")}
+                  style={styles.welcomeImg}
+                />
 
-              <View style={{ flexDirection: "column" }}>
-                <Text style={styles.welcomeText}>David !</Text>
-                <Text style={styles.welcomeNote}>"Riding the easy way"</Text>
+                <View style={{ flexDirection: "column" }}>
+                  <Text style={styles.welcomeText}>{userDetails.userName}</Text>
+                  <Text style={styles.welcomeNote}>"Riding the easy way"</Text>
+                </View>
+              </View>
+            </View>
+            <View style={styles.creditContainer}>
+              <Text style={styles.labelText}>Available Balance</Text>
+              <Text style={styles.balanceText}>
+                {userDetails.accountBalance}
+              </Text>
+              <TouchableOpacity style={styles.topUpBtn} onPress={naviTop}>
+                <Text style={styles.topUpText}>Top Up</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.funContainer}>
+              <View style={{ flexDirection: "column", gap: width * 0.05 }}>
+                <TouchableOpacity
+                  style={styles.fun}
+                  onPress={() => {
+                    navigation.navigate("PassengerBusSchedule");
+                  }}
+                >
+                  <Image
+                    source={require("../assets/images/schedule.png")}
+                    style={styles.funImg}
+                  />
+                  <Text style={styles.funText}>Schedule</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.fun}
+                  onPress={() => {
+                    navigation.navigate("PassengerToken");
+                  }}
+                >
+                  <Image
+                    source={require("../assets/images/scan-code.png")}
+                    style={styles.funImg}
+                  />
+                  <Text style={styles.funText}>My Token</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={{ flexDirection: "column", gap: width * 0.05 }}>
+                <TouchableOpacity
+                  style={styles.fun}
+                  onPress={() => {
+                    navigation.navigate("PassengerTrips");
+                  }}
+                >
+                  <Image
+                    source={require("../assets/images/travel.png")}
+                    style={styles.funImg}
+                  />
+                  <Text style={styles.funText}>My Trips</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.fun}
+                  onPress={() => {
+                    navigation.navigate("UserProfile");
+                  }}
+                >
+                  <Image
+                    source={require("../assets/images/settingIcon.png")}
+                    style={styles.funImg}
+                  />
+                  <Text style={styles.funText}>Settings</Text>
+                </TouchableOpacity>
               </View>
             </View>
           </View>
-          <View style={styles.creditContainer}>
-            <Text style={styles.labelText}>Available Balance</Text>
-            <Text style={styles.balanceText}>1500.00</Text>
-            <TouchableOpacity style={styles.topUpBtn} onPress={naviTop}>
-              <Text style={styles.topUpText}>Top Up</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.funContainer}>
-            <View style={{ flexDirection: "column", gap: width * 0.05 }}>
-              <TouchableOpacity
-                style={styles.fun}
-                onPress={() => {
-                  navigation.navigate("PassengerBusSchedule");
-                }}
-              >
-                <Image
-                  source={require("../assets/images/schedule.png")}
-                  style={styles.funImg}
-                />
-                <Text style={styles.funText}>Schedule</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.fun}
-                onPress={() => {
-                  navigation.navigate("PassengerToken");
-                }}
-              >
-                <Image
-                  source={require("../assets/images/scan-code.png")}
-                  style={styles.funImg}
-                />
-                <Text style={styles.funText}>My Token</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={{ flexDirection: "column", gap: width * 0.05 }}>
-              <TouchableOpacity
-                style={styles.fun}
-                onPress={() => {
-                  navigation.navigate("PassengerTrips");
-                }}
-              >
-                <Image
-                  source={require("../assets/images/travel.png")}
-                  style={styles.funImg}
-                />
-                <Text style={styles.funText}>My Trips</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.fun}
-                onPress={() => {
-                  navigation.navigate("UserProfile");
-                }}
-              >
-                <Image
-                  source={require("../assets/images/settingIcon.png")}
-                  style={styles.funImg}
-                />
-                <Text style={styles.funText}>Settings</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
+        )}
       </ScrollView>
     </SafeAreaView>
   );
