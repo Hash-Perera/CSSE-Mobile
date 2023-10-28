@@ -9,10 +9,12 @@ import {
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { COLORS } from "../constraints/constants";
+const { width, height } = Dimensions.get("window"); // Get the window dimensions
 
 const GetStarted = () => {
   const navigation = useNavigation();
 
+  /* navigate to Login */
   const handleGetStarted = () => {
     navigation.navigate("Login");
   };
@@ -31,8 +33,6 @@ const GetStarted = () => {
 };
 
 export default GetStarted;
-
-const { width, height } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   container: {

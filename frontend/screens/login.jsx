@@ -19,20 +19,26 @@ import Toast from "react-native-root-toast";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Login = () => {
+  const navigation = useNavigation();
+
+  /* Setters */
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const navigation = useNavigation();
+  /* Navigations */
 
+  // Navigate to SignUp
   const handleSignUpBtn = () => {
     navigation.navigate("SignUp");
   };
 
+  // Navigate to GetStarted
   const handleBack = () => {
     navigation.navigate("GetStarted");
   };
 
-  ///Login Function
+  /* Functions */
+  //Login Function
   const handleLogin = async () => {
     const data = {
       email: username,
@@ -114,6 +120,7 @@ const Login = () => {
   );
 };
 
+/* Styles */
 const styles = StyleSheet.create({
   container: {
     flex: 1,
