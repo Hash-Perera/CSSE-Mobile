@@ -11,24 +11,29 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { COLORS } from "../constraints/constants";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import {
+  useNavigation,
+  useRoute,
+  useFocusEffect,
+} from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-
-const { width, height } = Dimensions.get("window");
+const { width, height } = Dimensions.get("window"); // Get the window dimensions
 
 const Home = () => {
   const navigation = useNavigation();
-  // const route = useRoute();
-  // const { data } = route.params;
+
+  /* Setters */
   const [tokenValue, settokenValue] = useState(null);
   const [userDetails, setUserDetails] = useState(null);
   const [isData, setIsData] = useState(false);
 
+  /* Navigate to Topup */
   const naviTop = () => {
     navigation.navigate("TopUp");
   };
 
+  /* Get request call to fetch user data */
   const getUserData = async () => {
     const AuthToken = await AsyncStorage.getItem("token");
 
@@ -50,10 +55,12 @@ const Home = () => {
       });
   };
 
-  useEffect(() => {
-    getUserData();
-    console.log(userDetails);
-  }, []);
+  /* Refreshing data */
+  useFocusEffect(
+    React.useCallback(() => {
+      getUserData();
+    }, [])
+  );
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -64,7 +71,6 @@ const Home = () => {
               <TouchableOpacity
                 style={styles.userPro}
                 onPress={() => {
-                  //navigation.navigate("UserProfile");
                   axios
                     .get("/bus/all-for-route", apiConfig)
                     .then((reponse) => {
@@ -175,6 +181,7 @@ const Home = () => {
   );
 };
 
+/* Stylesheet */
 const styles = StyleSheet.create({
   container: {
     flex: 1,
