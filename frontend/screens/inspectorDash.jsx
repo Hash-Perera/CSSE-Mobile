@@ -10,13 +10,48 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { COLORS } from "../constraints/constants";
-import { useNavigation } from "@react-navigation/native";
-
-const { width, height } = Dimensions.get("window");
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
+const { width, height } = Dimensions.get("window"); // Get the window dimensions
 
 const InspectorDashboard = () => {
-  const [username, setUsername] = useState("David");
+  /* Setters */
   const [refNo, setRefNo] = useState("798760C");
+  const [userNames, setUserNames] = useState("");
+  const [isData, setIsData] = useState(false);
+  const [userDetails, setUserDetails] = useState(null);
+
+  /* Get request call to fetch user data */
+  const getUserData = async () => {
+    const AuthToken = await AsyncStorage.getItem("token");
+
+    const apiConfig = {
+      headers: {
+        Authorization: `Bearer ${AuthToken}`,
+        "Content-Type": "application/json",
+      },
+    };
+
+    axios
+      .get("/auth/user-details", apiConfig)
+      .then((response) => {
+        setUserDetails(response.data);
+        console.log(response.data);
+        setUserNames(response.data.userName);
+        setIsData(true);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  /* Refreshing data */
+  useFocusEffect(
+    React.useCallback(() => {
+      getUserData();
+    }, [])
+  );
 
   const navigation = useNavigation();
   return (
@@ -53,7 +88,7 @@ const InspectorDashboard = () => {
               />
 
               <View style={{ flexDirection: "column" }}>
-                <Text style={styles.welcomeText}>{username} !</Text>
+                <Text style={styles.welcomeText}> {userNames}!</Text>
                 <Text style={styles.welcomeNote}>"Riding the easy way"</Text>
               </View>
             </View>

@@ -32,6 +32,7 @@ const ScanQR = () => {
   const [userId, setUserId] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [inputValue, setInputValue] = useState("");
+
   /* modal */
   const bottomSheetModalRef = useRef(null);
   const snapPoints = ["80%"];
